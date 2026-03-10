@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  display: block;
+}
+
+.map-wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.map-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.overlay {
+  opacity: 0;
+  transition: opacity 0.44s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+}
+
+.legend {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 10;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 6px;
+  transition: color 0.2s, opacity 0.2s;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 14px;
+}
+
+.legend-item:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.swatch-1 { background: #ffffff; }
+.swatch-2 { background: #ffffff; }
+.swatch-3 { background: #ffffff; }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <div class="map-wrapper">
+    <img src="https://raw.githubusercontent.com/CitrusGD/map-images/refs/heads/main/Base%20Map.jpg" class="map-layer base" alt="Base Map">
+<img src="https://raw.githubusercontent.com/CitrusGD/map-images/refs/heads/main/Biome%20Map.jpg" class="map-layer overlay" id="overlay-1" alt="Overlay 1">
+<img src="https://raw.githubusercontent.com/CitrusGD/map-images/refs/heads/main/Height%20Map.jpg" class="map-layer overlay" id="overlay-2" alt="Overlay 2">
+<img src="https://raw.githubusercontent.com/CitrusGD/map-images/refs/heads/main/Regions%20Map.jpg" class="map-layer overlay" id="overlay-3" alt="Overlay 3">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+    <div class="legend">
+      <div class="legend-item" data-overlay="overlay-1">
+        <span class="swatch swatch-1"></span> Biome Map
+      </div>
+      <div class="legend-item" data-overlay="overlay-2">
+        <span class="swatch swatch-2"></span> Height Map
+      </div>
+      <div class="legend-item" data-overlay="overlay-3">
+        <span class="swatch swatch-3"></span> Region Map
+      </div>
+    </div>
+  </div>
+</div>
+  <script>
+    const legendItems = document.querySelectorAll('.legend-item');
+
+legendItems.forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    const targetId = item.dataset.overlay;
+    document.getElementById(targetId).classList.add('active');
+  });
+
+  item.addEventListener('mouseleave', () => {
+    const targetId = item.dataset.overlay;
+    document.getElementById(targetId).classList.remove('active');
+  });
+});
+  </script>
+</body>
+</html>
