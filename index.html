@@ -105,7 +105,24 @@ legendItems.forEach(item => {
 
   item.addEventListener('mouseleave', () => {
     const targetId = item.dataset.overlay;
-    document.getElementById(targetId).classList.remove('active');
+    if (!item.classList.contains('locked')) {
+      document.getElementById(targetId).classList.remove('active');
+    }
+  });
+
+  item.addEventListener('click', () => {
+    const targetId = item.dataset.overlay;
+    const isLocked = item.classList.contains('locked');
+
+    legendItems.forEach(other => {
+      other.classList.remove('locked');
+      document.getElementById(other.dataset.overlay).classList.remove('active');
+    });
+
+    if (!isLocked) {
+      item.classList.add('locked');
+      document.getElementById(targetId).classList.add('active');
+    }
   });
 });
   </script>
